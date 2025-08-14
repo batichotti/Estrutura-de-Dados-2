@@ -1,0 +1,45 @@
+# Compiled object files
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dll
+*.dylib
+
+# Executable files
+*.exe
+*.out
+*.app
+
+# Debug files
+*.dSYM/
+*.stackdump
+
+# CMake build folders
+/build/
+cmake-build-*/
+
+# Visual Studio Code settings
+.vscode/
+
+# CLion settings
+.idea/
+
+# Makefile auto-generated files
+Makefile.in
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+install_manifest.txt
+
+# Other
+*.log
+*.tmp
+*.user
+*.swp
+*.swo

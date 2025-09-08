@@ -17,16 +17,18 @@ std::pair<int, int> twosum(std::vector<int>& v, int k){
     return std::make_pair(-1, -1);
 }
 
-std::pair<int, int> twosum_optimized(std::vector<int>& v, int k){
+std::pair<int, int> twosum_optimized(const std::vector<int>& v, int k){
     int e = 0;
     int d = v.size() - 1;
 
-    std::sort(v.begin(), v.end());
+    std::vector<int> v2 = v;
+
+    std::sort(v2.begin(), v2.end());
 
     while (e < d){
-        if(v[e] + v[d] == k) return std::make_pair(v[e], v[d]);
-        else if (v[e] + v[d] > k) d--;
-        else if (v[e] + v[d] < k) e++;
+        if(v2[e] + v2[d] == k) return std::make_pair(v2[e], v2[d]);
+        else if (v2[e] + v2[d] > k) d--;
+        else e++;
     }
 
     return std::make_pair(-1, -1);

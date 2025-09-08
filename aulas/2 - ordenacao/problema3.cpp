@@ -4,13 +4,29 @@
 #include <cstdio>
 #include <vector>
 #include <iostream>
+#include <algorithm>
 
-std::pair<int, int> twosum(std::vector<int> &v, int k){
+std::pair<int, int> twosum(std::vector<int>& v, int k){
     for (int first : v) {
         if (first > k) break;
         for (int second : v){
             if (first + second == k) return std::make_pair(first, second);
         }
+    }
+
+    return std::make_pair(-1, -1);
+}
+
+std::pair<int, int> twosum_optimized(std::vector<int>& v, int k){
+    int e = 0;
+    int d = v.size() - 1;
+
+    std::sort(v.begin(), v.end());
+
+    while (e < d){
+        if(v[e] + v[d] == k) return std::make_pair(v[e], v[d]);
+        else if (v[e] + v[d] > k) d--;
+        else if (v[e] + v[d] < k) e++;
     }
 
     return std::make_pair(-1, -1);
@@ -56,6 +72,6 @@ int main()
 {
     std::vector<int> v = {9, 14, 2, 1, 17, 10};
     int k = 27;
-    std::pair<int, int> p = twosum(v, k);
+    std::pair<int, int> p = twosum_optimized(v, k);
     std::cout << p.first << " e " << p.second << "\n";
 }

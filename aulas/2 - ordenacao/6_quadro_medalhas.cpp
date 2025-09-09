@@ -20,8 +20,15 @@ struct Pais{
     int bronze;
 };
 
-void ordenar_quadro_medalhas(vector<Pais> &paises){
+bool compararPaises(const Pais& a, const Pais& b){
+	if(a.ouro != b.ouro) return a.ouro > b.ouro;
+	else if (a.prata != b.prata) return a.prata > b.prata;
+	else if (a.bronze != b.bronze) return a.bronze > b.bronze;
+	else return a.nome < b.nome;
+}
 
+void ordenar_quadro_medalhas(vector<Pais> &paises){
+    sort(paises.begin(), paises.end(), compararPaises);   
 }
 
 int main(int argc, char** argv){

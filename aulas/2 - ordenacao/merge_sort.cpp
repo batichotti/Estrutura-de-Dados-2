@@ -31,8 +31,8 @@ void merge(int* v, int p, int q, int r){
         v[k++] = d[j++];
     }
 
-    delete e;
-    delete d;
+    delete[] e;
+    delete[] d;
 }
 
 int main(int argc, char const *argv[]){

@@ -5,20 +5,16 @@ void merge(int* v, int p, int q, int r){
     int n2 = r - q;
     int* e = new int[n1];
     int* d = new int[n2];
-    int k = 0;
+    int k = p;
     int i = 0;
     int j = 0;
 
-    for(int i = p; i <= q; i++){
-        e[k++] = v[i];
+    for(int i = 0; i < n1; i++){
+        e[i] = v[p+i];
     }
-    k = 0;
-    for(int j = q+1; j <= r; j++){
-        d[k++] = v[j];
+    for(int j = 0; j < n2; j++){
+        d[j] = v[q+j+1];
     }
-    k = p;
-    i = 0;
-    j = 0;
 
     while ((i < n1) && (j < n2)){
         if (e[i] <= d[j]){

@@ -1,4 +1,7 @@
 #include <iostream>
+#include "utils.h"
+#include <vector>
+#include <string>
 
 void merge(int* v, int p, int q, int r){
     int n1 = q-p+1;
@@ -35,18 +38,26 @@ void merge(int* v, int p, int q, int r){
     delete[] d;
 }
 
-int main(int argc, char const *argv[]){
-    int v[] = {1, 7, 9, 0, 5, 8};
-    int n = sizeof(v) / sizeof(v[0]);
-    int p = 0;
-    int q = (n - 1) / 2;
-    int r = n - 1;
+void MergeSort(int* v, int e, int d){
+    if (e < d){
+        int M = (e + d)/2;
+        MergeSort(v, e, M);
+        MergeSort(v, M+1, d);
+        merge(v, e, M, d);
+    } 
+}
 
-    merge(v, p, q, r);
+int main(int argc, char const *argv[]){
+    int n = (argc >= 2)?(std::stoi(argv[1])):(10);
+
+    std::vector<int> v = gerar_vetor_aleatorio(n, 99, n*100);
+    
+    MergeSort(v.data(), 0, n-1);
 
     for (int i = 0; i < n; i++) {
         std::cout << v[i] << " ";
     }
     std::cout << std::endl;
+
     return 0;
 }

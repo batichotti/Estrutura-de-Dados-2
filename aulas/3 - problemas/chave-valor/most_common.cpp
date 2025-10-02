@@ -2,14 +2,14 @@
 #include <vector>
 #include <map>
 
-// -std=c++17
 template <typename T>
 T most_common(std::vector<T> v){
     std::map<T, unsigned int> M;
     for (T x : v){
         if (M.count(x)){
-            M.insert_or_assign(x, M.at(x) + 1);
-            // M.insert_or_assign(x, ++M.at(x));
+            M[x]++;
+            // M.insert_or_assign(x, M.at(x) + 1); // -std=c++17
+            // M.insert_or_assign(x, ++M.at(x)); // -std=c++17
             // int count = M.at(x);
             // count++;
             // M.insert_or_assign(x, count);

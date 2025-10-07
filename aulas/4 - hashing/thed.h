@@ -6,10 +6,19 @@
 class TabHashEncadeamento {
 public:
     //Construtor: inicializa uma nova tabela com tamanho m
-    TabHashEncadeamento(int tamanho, int limiar = 5);
+    TabHashEncadeamento(int tamanho, int limiar = 5){
+        this->invalido = std::make_pair(-1, -1);
+        this->limiar = limiar;
+        this->m = tamanho;
+        this->n = 0;
+        this->redims = 0;
+        this->tabela = new std::vector<std::pair<int, int>>[tamanho];
+    }
 
     //Destrutor: libera todos os recursos alocados para a tabela
-    ~TabHashEncadeamento(); 
+    ~TabHashEncadeamento(){
+        delete[] this->tabela;
+    }
     
     //Insere um novo par (chave, valor) na tabela
     void inserir(int chave, int valor);

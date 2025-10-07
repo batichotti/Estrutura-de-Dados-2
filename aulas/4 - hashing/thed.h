@@ -21,7 +21,16 @@ public:
     }
     
     //Insere um novo par (chave, valor) na tabela
-    void inserir(int chave, int valor);
+    void inserir(int chave, int valor){
+        auto& el = this->buscar(chave);
+        if(el != this->invalido){
+            // chave já está na tabela
+            el.second = valor;
+            return;
+        }
+        int h = hash(chave);
+        this->tabela[h].push_back(std::make_pair(chave, valor));
+    }
     
     //Remove o par com a chave da tabeka
     void remover(int chave);
@@ -52,7 +61,9 @@ private:
     int redims; // número de redimensionamentos realizados
 
     std::vector<std::pair<int,int>> *tabela; // tabela hash
-    int hash(int chave); // função hash
+    int hash(int chave){ // função hash
+        return chave % this->m;
+    }
 
     // redimensiona a tabela para o novo tamanho (novo_m)
     void redimensionar(int novo_m); 

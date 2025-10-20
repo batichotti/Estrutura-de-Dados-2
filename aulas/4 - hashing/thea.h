@@ -108,7 +108,19 @@ private:
         return chave % this->m;
     }
     // redimensiona a tabela para o novo tamanho (novo_m)
-    void redimensionar(int novo_m); 
+    void redimensionar(int novo_m){
+        Elemento* nova_tabela = new Elemento[novo_m];
+        for (int i = 0; i < novo_m; i++){
+            nova_tabela[i].estado = Estado::LIVRE;
+        }
+        Elemento* tabela_antiga = this->tabela;
+        this->tabela = nova_tabela;
+        int m_antigo = this->m;
+        this->n = 0;
+        this->m = novo_m;
+        for(int i = 0; i < m_antigo; i++) if (tabela_antiga[i].estado == Estado::OCUPADO) inserir(tabela_antiga[i].chave, tabela_antiga[i].valor);
+        delete[] tabela_antiga;
+    }
 
     //retorna a posição que a chave ocupa na tabela. 
     //(ou -1 se a chave não estiver na tabela)

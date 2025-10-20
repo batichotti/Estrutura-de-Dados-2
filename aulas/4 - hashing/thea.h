@@ -27,6 +27,9 @@ public:
             this->tabela[pos].valor = valor;
             return;
         }
+
+        if (((float)this->n / this->m)>=0.5) redimensionar(m*2+1);
+
         int h = hash(chave);
         while (this->tabela[h].estado == Estado::OCUPADO){
             h++;
@@ -109,6 +112,7 @@ private:
     }
     // redimensiona a tabela para o novo tamanho (novo_m)
     void redimensionar(int novo_m){
+        this->redims++;
         Elemento* nova_tabela = new Elemento[novo_m];
         for (int i = 0; i < novo_m; i++){
             nova_tabela[i].estado = Estado::LIVRE;

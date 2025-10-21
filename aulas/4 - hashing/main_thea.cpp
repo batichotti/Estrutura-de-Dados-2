@@ -92,27 +92,27 @@
 //     std::cout << std::endl;    
 // }
 
-// void test3(int argc, char** argv){
-//     int m = atoi(argv[1]);
-//     int n = atoi(argv[2]);
-//     float limiar = atof(argv[3]);
+void test3(int argc, char** argv){
+    int m = atoi(argv[1]);
+    int n = atoi(argv[2]);
+    float limiar = atof(argv[3]);
 
-//     TabHashEndAberto tab(m, limiar);
+    TabHashEndAberto tab(m, limiar);
 
-//     for(int i = 0; i < n; i++){
-//         tab.inserir(rand() % (n*100), rand() % (n*100));
-//     }
+    for(int i = 0; i < n; i++){
+        tab.inserir(rand() % (n*100), rand() % (n*100));
+    }
 
-//     tab.imprimir();
-//     tab.imprimir_info();
-// }
+    tab.imprimir();
+    tab.imprimir_info();
+}
 
 
 int main(int argc, char** argv){
     
     //test1();
     //test2();
-    // test3(argc, argv);
+    test3(argc, argv);
 
     TabHashEndAberto thea(10);
 

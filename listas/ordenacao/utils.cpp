@@ -18,6 +18,14 @@ int max(int* v, int ini, int fim){
     return maior;
 }
 
+int min(int* v, int ini, int fim){
+    int menor = ini;
+    for (int i = ini; i <= fim; i++){
+        if (v[menor] > v[i]) menor = i;
+    }
+    return menor;
+}
+
 std::vector<int> gerar_vetor_aleatorio(int n, int seed, int max){
     std::vector<int> v;
     v.reserve(n);
@@ -67,4 +75,34 @@ std::vector<int> gerar_vetor_aleatorio_sem_reps(int n, int seed){
     return v;
 }
 
+void insertion(int* v, int k){
+    int i = k - 1;
+    int x = v[k];
+    while((i>=0) && (v[i] > x)){
+        v[i+1] = v[i];
+        i--;
+    }
+    v[i+1] = x;
+}
 
+void insertion_dec(int* v, int k){
+    int i = k - 1;
+    int x = v[k];
+    while((i>=0) && (v[i] < x)){
+        v[i+1] = v[i];
+        i--;
+    }
+    v[i+1] = x;
+}
+
+int partition(int* v, int p, int r){
+    int x = v[r];
+    int i = p - 1;
+    for (int j = p; j < r; j++){
+        if(v[j] <= x){
+            troca(v[++i], v[j]);
+        }
+    }
+    troca(v[++i], v[r]);
+    return i;
+}

@@ -1,17 +1,4 @@
-template <typename T>
-void troca(T& a, T& b){
-    T temp = a;
-    a = b;
-    b = temp;
-}
-
-int max(int* v, int ini, int fim){
-    int maior = v[ini];
-    for (int i = ini; i < fim; i++){
-        if (maior < v[i]) maior = v[i];
-    }
-    return maior;
-}
+#include "utils.h"
 
 void SelectionSort(int*v, int n){
     int i;
@@ -20,4 +7,9 @@ void SelectionSort(int*v, int n){
         maior = max(v, 0, i);
         troca(maior, i);
     }   
+}
+
+int main(int argc, char const *argv[]){
+    
+    return 0;
 }

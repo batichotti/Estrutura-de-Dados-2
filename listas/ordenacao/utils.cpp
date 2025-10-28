@@ -1,6 +1,7 @@
 #include <cstdlib>
 #include <cstdio>
 #include <vector>
+#pragma once
 
 template <typename T>
 void troca(T& a, T& b){
@@ -10,9 +11,9 @@ void troca(T& a, T& b){
 }
 
 int max(int* v, int ini, int fim){
-    int maior = v[ini];
-    for (int i = ini; i < fim; i++){
-        if (maior < v[i]) maior = v[i];
+    int maior = ini;
+    for (int i = ini; i <= fim; i++){
+        if (v[maior] < v[i]) maior = i;
     }
     return maior;
 }

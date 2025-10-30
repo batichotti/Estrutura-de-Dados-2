@@ -1,12 +1,14 @@
 #pragma once
 
+#include "sondagem.h"
 #include <vector>
 #include <utility>
+#include "gerador_primos.h"
 
 class TabHashEndAberto {
 public:
     //Construtor: inicializa uma nova tabela com tamanho m
-    TabHashEndAberto(int tamanho, float limiar);
+    TabHashEndAberto(int tamanho, float limiar, FSondagem* fsondagem);
 
     //Destrutor: libera todos os recursos alocados para a tabela
     ~TabHashEndAberto();
@@ -40,23 +42,26 @@ private:
         int valor;
         Estado estado;
     };
-
+    
     int m; // tamanho da tabela
     int n; // número de elementos na tabela
     // limiar para redimensionamento. quando n/m > limiar, redimensionar
     float limiar; 
     int redims; // número de redimensionamentos realizados
-
+    int colisoes;
+    
     Elemento *tabela; // tabela hash
-
+    
     //função hash
     int hash(int chave, int k);
 
     // redimensiona a tabela para o novo tamanho (novo_m)
     void redimensionar(int novo_m);
-
+    
     //retorna a posição que a chave ocupa na tabela. 
     //(ou -1 se a chave não estiver na tabela)
     int buscar_pos(int chave);
     
+    FSondagem* fsondagem;
+    GeradorPrimos gp;
 };

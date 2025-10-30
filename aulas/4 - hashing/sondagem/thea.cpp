@@ -1,10 +1,13 @@
 #include "thea.h"
 #include <iostream>
+#include "sondagem.h"
 
 //Construtor: inicializa uma nova tabela com tamanho m
-TabHashEndAberto::TabHashEndAberto(int tamanho, float limiar){
+TabHashEndAberto::TabHashEndAberto(int tamanho, float limiar, FSondagem* fsondagem){
+    this->fsondagem = fsondagem;
     this->m = tamanho;
     this->n = 0;
+    this->colisoes = 0;
     this->redims = 0;
     this->tabela = new Elemento[this->m];
     this->limiar = limiar;
@@ -20,9 +23,9 @@ TabHashEndAberto::~TabHashEndAberto(){
 
 //função hash
 int TabHashEndAberto::hash(int chave, int k){
-    return (chave % this->m + k) % this->m;
-} 
-
+    int p = this->fsondagem->p(chave, k);
+    return ((chave % this->m) + p) % this->m;
+}
     
 //Insere um novo par (chave, valor) na tabela
 void TabHashEndAberto::inserir(int chave, int valor){
@@ -34,7 +37,7 @@ void TabHashEndAberto::inserir(int chave, int valor){
     }
 
     if( (float)this->n/this->m > this->limiar){
-        this->redimensionar(this->m * 2);
+        this->redimensionar(gp.proximo(this->m * 2)); // garante que é primo
         this->redims++;
     }
 
@@ -75,6 +78,7 @@ void TabHashEndAberto::imprimir(){
         char estado = el.estado == Estado::APAGADO ? 'A' :
                     (el.estado == Estado::LIVRE ? 'L' : 'O');
         std::cout << "[" << estado << "]";
+        std::cout << "Colisoes: " << this->colisoes << std::endl;
         std::cout << std::endl;
     }    
 }
@@ -89,6 +93,7 @@ void TabHashEndAberto::imprimir_info(){
 
 // redimensiona a tabela para o novo tamanho (novo_m)
 void TabHashEndAberto::redimensionar(int novo_m){
+    this->fsondagem->redim_callback(novo_m);
     Elemento* nova = new Elemento[novo_m];
     for(int i = 0; i < novo_m; i++){
             nova[i].estado = Estado::LIVRE;
@@ -100,8 +105,7 @@ void TabHashEndAberto::redimensionar(int novo_m){
         this->m = novo_m;
         for(int i = 0; i < m_antigo; i++){
             if(antiga[i].estado == Estado::OCUPADO){
-                this->inserir(antiga[i].chave, 
-                                antiga[i].valor);
+                this->inserir(antiga[i].chave, antiga[i].valor);
             }
         }
         delete[] antiga;

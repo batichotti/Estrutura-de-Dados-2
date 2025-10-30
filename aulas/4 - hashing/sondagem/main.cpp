@@ -3,19 +3,23 @@
 #include <cstdlib>
 #include "sondagem.h"
 
-void test(int argc, char** argv, FSondagem* fsondagem){
+void test(int argc, char** argv){
     int m;
     int n;
     float limiar;
-    if(argc < 4){
+    FSondagem* fsondagem;
+    if(argc < 5){
         m = 7;
         n = 100;
         limiar = 0.4;
+        build_FSondagem("linear");
     } else {   
         m = atoi(argv[1]);
         n = atoi(argv[2]);
         limiar = atof(argv[3]);
+        build_FSondagem(argv[4]);
     }
+    fsondagem->redim_callback(m-1);
 
     TabHashEndAberto tab(m, limiar, fsondagem);
 
@@ -36,7 +40,7 @@ void test(int argc, char** argv, FSondagem* fsondagem){
 
 int main(int argc, char** argv){
     
-    test(argc, argv, new SondagemLinear());
+    test(argc, argv);
 
     return 0;
 }

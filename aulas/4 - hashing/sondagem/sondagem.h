@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 class FSondagem{
 public:
@@ -36,6 +37,13 @@ public:
 private:
     int s;
 };
+
+FSondagem* build_FSondagem(std::string nome){
+    if(nome == "linear") return new SondagemLinear();
+    if(nome == "quadratica") return new SondagemQuadratica();
+    if(nome == "hashduplo") return new SondagemHashDuplo(0);
+    else return new SondagemLinear();
+}
 
 // //Main
 // int main(int argc, char const *argv[]){

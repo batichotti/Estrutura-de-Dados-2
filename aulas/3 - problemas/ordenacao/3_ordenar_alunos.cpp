@@ -14,6 +14,10 @@ public:
     // sobrecarregar o operador <. Implemente a sobrecarga do operador < para
     // que a função sort possa ordenar um vetor de alunos pelo campo ra.
 
+    bool operator<(Aluno& other) const {
+        return ra < other.ra;
+    }
+
     void imprimir(){
         cout << "Nome: " << nome << ", RA: " << ra << endl;
     }
@@ -42,7 +46,7 @@ int main(int argc, char** argv){
     };
     
     //Ordenar o vetor de alunos.
-
+    std::sort(alunos.begin(), alunos.end());
 
     for(auto& aluno : alunos){
         aluno.imprimir();

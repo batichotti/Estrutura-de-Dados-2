@@ -11,7 +11,10 @@ using namespace std;
 // retorna true se s e t são anagramas. Caso contrário, retorna false.
 // s e t são strings terminadas em 0.
 bool sao_anagramas(string& s, string& t){
-    return false;
+    if(s.size() != t.size()) return false;
+    std::sort(s.begin(), s.end());
+    std::sort(t.begin(), t.end());
+    return s == t;
 }
 
 int main(int argc, char** argv){

@@ -14,13 +14,16 @@
 // k=2 retorna o segundo maior elemento
 // k=....
 // k=n retorna o menor elemento
-int k_maior(std::vector<int> &v, int k){
-    return 0;
+int k_maior(std::vector<int>& v, int k){
+    std::sort(v.begin(), v.end());
+    return v[v.size() - k];
 }
 
 int main(int argc, char** argv){
     int n = atoi(argv[1]);
     int k = atoi(argv[2]);
+
+    if (k > n || k <= 0) return 1;
 
     auto v = gerar_vetor_aleatorio_sem_reps(n, 42);
 

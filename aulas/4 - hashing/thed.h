@@ -4,6 +4,7 @@
 #include <vector>
 #include <utility>
 
+template <typename T>
 class TabHashEncadeamento {
 public:
     //Construtor: inicializa uma nova tabela com tamanho m
@@ -14,7 +15,7 @@ public:
         this->n = 0;
         this->redims = 0;
         this->colisoes = 0;
-        this->tabela = new std::vector<std::pair<int, int>>[tamanho];
+        this->tabela = new std::vector<std::pair<int, T>>[tamanho];
     }
 
     //Destrutor: libera todos os recursos alocados para a tabela
@@ -23,7 +24,7 @@ public:
     }
     
     //Insere um novo par (chave, valor) na tabela
-    void inserir(int chave, int valor){
+    void inserir(int chave, T valor){
         // std::cout << "Inserindo chave: " << chave << std::endl;
         auto& el = this->buscar(chave);
         if(el != this->invalido){
@@ -41,10 +42,18 @@ public:
     }
     
     //Remove o par com a chave da tabela
-    void remover(int chave);
-    
+    void remover(int chave) {
+        int h = hash(chave);
+        for (auto it = this->tabela[h].begin(); it != this->tabela[h].end(); ++it) {
+            if (it->first == chave) {
+                this->tabela[h].erase(it);
+                this->n--;
+                return;
+            }
+        }
+    }
     //Busca o valor associado a chave na tabela
-    std::pair<int,int>& buscar(int chave){
+    std::pair<int,T>& buscar(int chave){
         int h = hash(chave);
         for (auto& el : this->tabela[h]){
             this->colisoes++;
@@ -74,13 +83,13 @@ public:
     }
 
     //par chave-valor inválido para indicar que a chave não foi encontrada
-    std::pair<int,int> invalido;
+    std::pair<int,T> invalido;
 
     // retorna as chaves da tabela
     std::vector<int> chaves();
 
     // retorna todos os pares (chave, valor) da tabela
-    std::vector<std::pair<int,int>> itens();
+    std::vector<std::pair<int,T>> itens();
 
 private:
     int m; // tamanho da tabela
@@ -90,7 +99,7 @@ private:
     int redims; // número de redimensionamentos realizados
     int colisoes;
 
-    std::vector<std::pair<int,int>> *tabela; // tabela hash
+    std::vector<std::pair<int,T>> *tabela; // tabela hash
     int hash(int chave){ // função hash
         return chave % this->m;
     }

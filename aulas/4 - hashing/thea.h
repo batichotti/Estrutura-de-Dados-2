@@ -3,6 +3,7 @@
 #include <vector>
 #include <utility>
 
+template <typename T>
 class TabHashEndAberto {
 public:
     //Construtor: inicializa uma nova tabela com tamanho m
@@ -21,7 +22,7 @@ public:
     }
     
     //Insere um novo par (chave, valor) na tabela
-    void inserir(int chave, int valor){
+    void inserir(int chave, T valor){
         int pos = buscar_pos(chave);
         if (pos >= 0){
             this->tabela[pos].valor = valor;
@@ -42,10 +43,16 @@ public:
     }
     
     //Remove o par com a chave da tabela
-    void remover(int chave);
-    
+    void remover(int chave) {
+        int pos = buscar_pos(chave);
+        if (pos >= 0) {
+            this->tabela[pos].estado = Estado::APAGADO;
+            this->n--;
+        }
+    }
+
     //Busca o valor associado a chave na tabela
-    std::pair<int,int> buscar(int chave){
+    std::pair<int,T> buscar(int chave){
         int pos = buscar_pos(chave);
         if (pos >= 0){
             return std::make_pair(this->tabela[pos].chave, this->tabela[pos].valor);
@@ -76,13 +83,13 @@ public:
     }
 
     //par chave-valor inválido para indicar que a chave não foi encontrada
-    std::pair<int,int> invalido = {-1, -1};
+    std::pair<int,T> invalido = {-1, -1};
 
     // retorna as chaves da tabela
     std::vector<int> chaves();
 
     // retorna todos os pares (chave, valor) da tabela
-    std::vector<std::pair<int,int>> itens();
+    std::vector<std::pair<int,T>> itens();
 
 private:
 
@@ -95,7 +102,7 @@ private:
     struct Elemento {
     public:
         int chave;
-        int valor;
+        T valor;
         Estado estado;
     };
 

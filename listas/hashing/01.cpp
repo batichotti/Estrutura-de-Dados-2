@@ -8,8 +8,7 @@ template< typename T>
 std::unordered_map<T,int> contarFrequencia(std::vector<T>& arr){
     std::unordered_map<T, int> tabela;
     for (T each : arr) {
-        if (tabela.find(each) == tabela.end()) tabela[each] = 1;
-        else tabela[each]++;   
+        tabela[each]++;   
     }
     return tabela;
 }

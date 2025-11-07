@@ -7,7 +7,7 @@ std::vector<T> semDuplicatas(std::vector<T>& arr){
     std::unordered_set<T> th;
     for (T each : arr) th.insert(each);
     std::vector<T> vecna;
-    for (T v : th) vecna.push_back(v);
+    for (T each : th) vecna.push_back(each);
     return vecna;
 }
 

@@ -1,7 +1,8 @@
 #include <iostream>
 #include "utils.cpp"
 
-void SelectionSort(int*v, int n){
+template <typename T>
+void SelectionSort(T* V, int n){
     int i;
     int maior;
 
@@ -11,7 +12,8 @@ void SelectionSort(int*v, int n){
     }   
 }
 
-void BubbleSort(int* v, int n){
+template <typename T>
+void BubbleSort(T* v, int n){
     int trocas = 1;
     int j;
     while(trocas){
@@ -25,7 +27,8 @@ void BubbleSort(int* v, int n){
     }
 }
 
-void InsertionSort(int* v, int n){
+template <typename T>
+void InsertionSort(T* v, int n){
     int j;
     for (j = 0; j < n; j++) insertion(v, j);   
 }

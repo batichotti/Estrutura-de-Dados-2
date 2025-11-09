@@ -83,7 +83,7 @@ public:
     }
 
     //par chave-valor inválido para indicar que a chave não foi encontrada
-    std::pair<int,T> invalido;
+    std::pair<int,T> invalido = {-1, -1};
 
     // retorna as chaves da tabela
     std::vector<int> chaves();

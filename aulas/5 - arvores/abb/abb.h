@@ -6,8 +6,7 @@ template<typename C, typename V>
 class ABB;
 
 template <typename C, typename V>
-class NoABB
-{
+class NoABB{
     public:
         NoABB(C chave, V valor) 
             : chave(chave), valor(valor), 
@@ -24,25 +23,38 @@ class NoABB
         NoABB *esq;
         NoABB *dir;
 
-    friend class ABB<C, V>;
+    friend class ABB<C, V>; // Permite que ABB acesse os elementos privados de NoABB
 };
 
 template <typename C, typename V>
-class ABB
-{
+class ABB{
     public:
-        ABB();
-        ~ABB() { delete raiz; }
+        ABB(){
+            this->raiz = nullptr;
+        }
+
+        ~ABB() {
+            //delete raiz;
+        }
 
         //insere o par (chave, valor) na árvore
         void inserir(C chave, V valor);
         //retorna o endereço do nó com a chave especificada
-        NoABB<C, V>* buscar(C chave);
+        NoABB<C, V>* buscar(C chave){
+            NoABB<C, V> no = this->raiz;
+            while(no != nullptr){
+                if(chave == no->chave) break;
+                if (chave > no->chave) no = no->dir;
+                else no = no->esq;
+            }
+            return no;
+        }
+
         //remove o nó com a chave especificada
         void remover(C chave);
         //imprime a árvore
 
-        void ABB<C, V>::imprimir(){
+        void imprimir(){
             this->imprimirNo(raiz, 0, 'R');
         }
 
@@ -73,9 +85,16 @@ class ABB
 
     private:
 
-        NoABB<C, V>* inserirNo(NoABB<C, V>* no, C chave, V valor);
+        NoABB<C, V>* inserirNo(NoABB<C, V>* no, C chave, V valor){
+            if (no == nullptr) return NoABB<C, V>(chave, valor);
+            if(chave < no->chave) no->esq = inserirNo(no->esq, chave, valor);
+            else if(chave > no->chave) no->dir = inserirNo(no->dir, chave, valor);
+            else no->valor = valor;
+            return no;
+        }
+
         NoABB<C, V>* removerNo(NoABB<C, V>* no, C chave);
-        void ABB<C, V>::imprimirNo(NoABB<C, V> *no, int nivel, char lado){
+        void imprimirNo(NoABB<C, V> *no, int nivel, char lado){
             for(int i = 0; i < nivel; i++){
                 std::cout << "-->";
             }

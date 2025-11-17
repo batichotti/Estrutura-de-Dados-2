@@ -79,7 +79,10 @@ class ABB{
         NoABB<C, V>* antecessor(NoABB<C, V>* no);
 
         //retorna o número de nós da árvore
-        int tamanho();
+        int tamanho() return contarNos(this->raiz);
+
+        int altura() return altura(this->raiz);
+
         //retorna true se a árvore estiver vazia
         bool vazia();
 
@@ -107,6 +110,15 @@ class ABB{
                 imprimirNo(no->esq, nivel + 1, 'E');
                 imprimirNo(no->dir, nivel + 1, 'D');
             }
+        }
+
+        int contarNos(NoABB* no) return (no == nullptr)?(0):(1 + contarNos(no->esq) + contarNos(no->dir));
+
+        int altura(NoABB* no){
+            if (no == nullptr) return 0;
+            int alturaEsq = altura(no->esq);
+            int alturaDir = altura(no->dir);
+            return (alturaEsq > alturaDir)?(alturaEsq+1):(alturaDir+1);
         }
 
         NoABB<C, V>* raiz;
